@@ -1,0 +1,60 @@
+﻿@model List<Web_List.Models.SanPham>
+@{
+    int tongTien = 0;
+}
+
+<div class="container">
+   <div class="row">
+      <div class="col">
+         <h1 class="text-center my-5 text-uppercase text-info">DANH SACH MUA HANG</h1>
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">STT</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Số lượng</th>
+                  <th scope="col">Đơn giá</th>
+                  <th scope="col">Tạm tính</th>
+                  <th scope="col">Thao tác</th>
+               </tr>
+            </thead>
+            <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                          <th scope="row">@(i+1)</th>
+                          <td>@(Model[i].tensanpham)</td>
+                          <td>@(Model[i].soluong)</td>
+                          <td>@(Model[i].dongiaban)</td>
+                          <td>@(Model[i].dongiaban * Model[i].soluong)</td>
+                          <td>Thung rac</td>
+                       </tr>
+                    }
+            </tbody>
+         </table>
+         <div class="mb-3">
+            <label class="form-label">Tổng thành tiền: @(ViewData["Tongtien"])</label>
+         </div>
+         <p class="text-danger">@ViewData["Message3"]</p>
+      </div>
+      <div class="col">
+         <h1 class="text-center my-5 text-uppercase text-info">THONG TIN SAN PHAM</h1>
+         <form asp-controller="Danhsach" asp-action="Themvaogiohang">
+            <div class="mb-5 col-6 mx-auto">
+               <label for="tensanpham" class="form-label fw-bold">Tên sản phẩm</label>
+               <input type="text" class="form-control" id="tensanpham" name="tensanpham" value="" aria-describedby="text">
+            </div>
+            <div class="mb-5 col-6 mx-auto">
+               <label for="soluong" class="form-label fw-bold">Số lượng</label>
+               <input type="text" class="form-control" id="soluong" name="soluong" value=""]" aria-describedby="text">
+            </div>
+            <div class="mb-5 col-6 mx-auto">
+               <label for="dongiaban" class="form-label fw-bold">Đơn giá bán (VNĐ)</label>
+               <input type="text" class="form-control" id="dongiaban" name="dongiaban" value=""]" aria-describedby="text">
+            </div>
+            <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+            <button type="button" class="btn btn-warning">Thanh toán</button>
+         </form>
+      </div>
+   </div>
+</div>
